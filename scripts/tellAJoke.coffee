@@ -1,5 +1,5 @@
 module.exports = (robot) ->
-    robot.respond /^tell me a joke/i, (res) ->
+    robot.respond /tell me a joke/i, (res) ->
         res.reply "In a purple galaxy, in a purple solar system, orbiting a purple star, there is a purple planet.\n\n"+
                   "On this purple planet (called Purplearth) there is a purple kingdom call Purpledonia. "+
                   "Purpledonia is ruled by the purple king Purplias Maximus the Purpley One who rules with "+
