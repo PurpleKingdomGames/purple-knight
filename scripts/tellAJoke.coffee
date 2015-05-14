@@ -62,7 +62,7 @@ module.exports = (robot) ->
             res.send "\"In you go!\""
             setTimeout () ->
                 res.send "No, wait a minute... it's \"Indigo!\""
-                res.emote "confused"
+                res.emote ":confused:"
             , 15 * 1000
         else
             res.send "\"Indigo!\""
