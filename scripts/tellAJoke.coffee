@@ -1,6 +1,9 @@
 # Description:
 #   All things purple-jokey
 #
+# Configuration:
+#   HUBOT_MASHAPE_KEY
+#
 # Commands:
 #   hubot tell me a joke - Tell the best joke known to man
 #   hubot what is your favourite colour - It's a personal question but hubot has an answer
@@ -149,23 +152,15 @@ module.exports = (robot) ->
             res.send "Try and guess..."
 
     robot.respond /tell me a joke that isn't the purple joke$/i, (res) ->
-        randomType = Math.random()
-
-        if randomType < 0.5
-          url = "cleanjokes"
-        else
-          url = "classyjokes"
-
-        res.http("http://www.reddit.com/r/#{url}.json")
+        res.http("https://webknox-jokes.p.mashape.com/jokes/random")
+        .headers({
+            "X-Mashape-Key":process.env.HUBOT_MASHAPE_KEY,
+            "Accept":"application/json"
+        })
         .get() (err, response, body) ->
           try
             data = JSON.parse body
-            children = data.data.children
-            joke = res.random(children).data
-
-            joketext = joke.selftext.replace(/^\.\.\.\s*/, '')
-
-            res.send joketext.trim()
+            res.send data.joke.trim()
 
           catch ex
             res.send "Well this is awkward.. I can't find any :confused:"
