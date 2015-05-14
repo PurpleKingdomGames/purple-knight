@@ -93,3 +93,24 @@ module.exports = (robot) ->
     robot.respond /tell me a joke/i, (res) ->
         res.reply "You'll like this one; it's my favourite:"
         tellThePurpleJoke(res)
+
+    robot.hear /indigo/i, (res) ->
+        res.send "Hey, I just remembered a really cool joke! Do you want to hear it?"
+        robot.brain.set 'askedAboutJoke', true
+
+    robot.hear /(.*)/i, (res) ->
+        hasAsked = robot.brain.get('askedAboutJoke') or false
+        if hasAsked
+            responseText      = res.match[1]
+            positiveResponses = /yes|yup|yeah|yea/i
+            negativeResponses = /no|nope|don't|nah/i
+
+            if positiveResponses.test(responseText)
+                res.send "You'll like this; it's my favourite joke!"
+                tellThePurpleJoke(res)
+            else if negativeResponses.test(responseText)
+                res.send "OK, no problem... maybe another time"
+            else
+                res.send "... or you could ignore me... that's good too"
+
+            robot.brain.set 'askedAboutJoke', false
