@@ -142,5 +142,7 @@ module.exports = (robot) ->
             res.send "What... is your quest?"
         else if randomExclamation < 0.7
             res.send "Blue.. no, wait!.. Ask me again"
+        else if randomExclamation < 0.8
+            res.send "If you let me tell you a joke, I might tell you the answer"
         else
             res.send "Try and guess..."
