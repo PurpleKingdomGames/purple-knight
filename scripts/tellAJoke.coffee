@@ -90,14 +90,6 @@ module.exports = (robot) ->
                 res.send "You liked it. I can tell"
         , 30 * 1000
 
-    robot.respond /tell me a joke/i, (res) ->
-        res.reply "You'll like this one; it's my favourite:"
-        tellThePurpleJoke(res)
-
-    robot.hear /indigo/i, (res) ->
-        res.send "Hey, I just remembered a really cool joke! Do you want to hear it?"
-        robot.brain.set 'askedAboutJoke', true
-
     robot.hear /(.*)/i, (res) ->
         hasAsked = robot.brain.get('askedAboutJoke') or false
         if hasAsked
@@ -114,3 +106,11 @@ module.exports = (robot) ->
                 res.send "... or you could ignore me... that's good too"
 
             robot.brain.set 'askedAboutJoke', false
+
+    robot.respond /tell me a joke/i, (res) ->
+        res.reply "You'll like this one; it's my favourite:"
+        tellThePurpleJoke(res)
+
+    robot.hear /indigo/i, (res) ->
+        res.send "Hey, I just remembered a really cool joke! Do you want to hear it?"
+        robot.brain.set 'askedAboutJoke', true
