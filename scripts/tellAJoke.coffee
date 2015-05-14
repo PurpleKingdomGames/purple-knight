@@ -3,7 +3,7 @@ module.exports = (robot) ->
         randomEnd = Math.random()
         randomExclamation = Math.random()
         res.reply "You'll like this one; it's my favourite:"
-        res.respond "In a purple galaxy, in a purple solar system, orbiting a purple star, there is a purple planet.\n\n"+
+        res.send "In a purple galaxy, in a purple solar system, orbiting a purple star, there is a purple planet.\n\n"+
                 "On this purple planet (called Purplearth) there is a purple kingdom call Purpledonia. "+
                 "Purpledonia is ruled by the purple king Purplias Maximus the Purpley One who rules with "+
                 "a purple, but fair, hand. One day Purpledonia was attacked by the most purple and evil of "+
@@ -59,33 +59,33 @@ module.exports = (robot) ->
                 "until finally, the purple guards came to the deepest darkest purple dungeon and threw the purple knight in "+
                 "with a final farewell of ... \n\n\n"
         if randomEnd > 0.75
-            res.respond "\"In you go!\""
+            res.send "\"In you go!\""
             setTimeout () ->
                 res.send "No, wait a minute... it's \"Indigo!\""
                 res.emote "confused"
             , 15 * 1000
         else
-            res.respond "\"Indigo!\""
+            res.send "\"Indigo!\""
 
         setTimeout () ->
             if randomExclamation < 0.1
-                res.respond "Nailed it!"
+                res.send "Nailed it!"
             else if randomExclamation < 0.2
-                res.respond "You're welcome!"
+                res.send "You're welcome!"
             else if randomExclamation < 0.3
-                res.respond "Boom!"
+                res.send "Boom!"
             else if randomExclamation < 0.4
-                res.respond "You can thank me later"
+                res.send "You can thank me later"
             else if randomExclamation < 0.5
-                res.respond "Totally nailed it!"
+                res.send "Totally nailed it!"
             else if randomExclamation < 0.6
-                res.respond "You liked it. I can tell"
+                res.send "You liked it. I can tell"
             else if randomExclamation < 0.7
-                res.respond "Why aren't you laughing? That was good!"
+                res.send "Why aren't you laughing? That was good!"
             else if randomExclamation < 0.8
-                res.respond "Nailed it!"
+                res.send "Nailed it!"
             else if randomExclamation < 0.9
-                res.respond "Boom!"
+                res.send "Boom!"
             else
-                res.respond "You liked it. I can tell"
+                res.send "You liked it. I can tell"
         , 30 * 1000
