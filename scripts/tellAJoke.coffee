@@ -1,3 +1,13 @@
+# Description:
+#   All things purple-jokey
+#
+# Commands:
+#   hubot tell me a joke - Tell the best joke known to man
+#   hubot what is your favourite colour - It's a personal question but hubot has an answer
+#
+# Author:
+#   hobnob
+
 module.exports = (robot) ->
     tellThePurpleJoke = (res) ->
         randomEnd = Math.random()
@@ -107,10 +117,30 @@ module.exports = (robot) ->
 
             robot.brain.set 'askedAboutJoke', false
 
+    robot.hear /indigo/i, (res) ->
+        res.send "Hey, I just remembered a really cool joke! Do you want to hear it?"
+        robot.brain.set 'askedAboutJoke', true
+
     robot.respond /tell me a joke/i, (res) ->
         res.reply "You'll like this one; it's my favourite:"
         tellThePurpleJoke(res)
 
-    robot.hear /indigo/i, (res) ->
-        res.send "Hey, I just remembered a really cool joke! Do you want to hear it?"
-        robot.brain.set 'askedAboutJoke', true
+    robot.respond /what is your favourite colour[?]{0,}/i, (res) ->
+        randomExclamation = Math.random()
+
+        if randomExclamation < 0.1
+            res.send "I bet you'll never guess"
+        else if randomExclamation < 0.2
+            res.send "It's of a purple variety"
+        else if randomExclamation < 0.3
+            res.send "I'll give you a clue... it rhymes with \"I like snow\""
+        else if randomExclamation < 0.4
+            res.send "It's quite a dark colour"
+        else if randomExclamation < 0.5
+            res.send "Indigo of course!"
+        else if randomExclamation < 0.6
+            res.send "What... is your quest?"
+        else if randomExclamation < 0.7
+            res.send "Blue.. no, wait!.. Ask me again"
+        else
+            res.send "Try and guess..."
