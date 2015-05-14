@@ -1,8 +1,8 @@
 module.exports = (robot) ->
-    robot.respond /tell me a joke/i, (res) ->
+    tellThePurpleJoke = (res) ->
         randomEnd = Math.random()
         randomExclamation = Math.random()
-        res.reply "You'll like this one; it's my favourite:"
+
         res.send "In a purple galaxy, in a purple solar system, orbiting a purple star, there is a purple planet.\n\n"+
                 "On this purple planet (called Purplearth) there is a purple kingdom call Purpledonia. "+
                 "Purpledonia is ruled by the purple king Purplias Maximus the Purpley One who rules with "+
@@ -89,3 +89,7 @@ module.exports = (robot) ->
             else
                 res.send "You liked it. I can tell"
         , 30 * 1000
+
+    robot.respond /tell me a joke/i, (res) ->
+        res.reply "You'll like this one; it's my favourite:"
+        tellThePurpleJoke(res)
