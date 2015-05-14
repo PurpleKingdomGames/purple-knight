@@ -4,6 +4,7 @@
 # Commands:
 #   hubot tell me a joke - Tell the best joke known to man
 #   hubot what is your favourite colour - It's a personal question but hubot has an answer
+#   hubot tell me a joke that isn't the purple joke - Tell another, sub-prime, joke
 #
 # Author:
 #   hobnob
@@ -121,7 +122,7 @@ module.exports = (robot) ->
         res.send "Hey, I just remembered a really cool joke! Do you want to hear it?"
         robot.brain.set 'askedAboutJoke', true
 
-    robot.respond /tell me a joke/i, (res) ->
+    robot.respond /tell me a joke$/i, (res) ->
         res.reply "You'll like this one; it's my favourite:"
         tellThePurpleJoke(res)
 
@@ -146,3 +147,27 @@ module.exports = (robot) ->
             res.send "If you let me tell you a joke, I might tell you the answer"
         else
             res.send "Try and guess..."
+
+    robot.respond /tell me a joke that isn't the purple joke$/i, (res) ->
+        randomType = Math.random()
+
+        if randomType < 0.5
+          url = "cleanjokes"
+        else
+          url = "classyjokes"
+
+        res.http("http://www.reddit.com/r/#{url}.json")
+        .get() (err, response, body) ->
+          try
+            data = JSON.parse body
+            children = data.data.children
+            joke = res.random(children).data
+
+            joketext = joke.selftext.replace(/^\.\.\.\s*/, '')
+
+            res.send joketext.trim()
+
+          catch ex
+            res.send "Well this is awkward.. I can't find any :confused:"
+            res.send "Would you like me to tell the purple joke instead? :wink:"
+            robot.brain.set 'askedAboutJoke', true
