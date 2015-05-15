@@ -8,7 +8,6 @@
 #
 # Author:
 #   hobnob
-
 module.exports = (robot) ->
     tellThePurpleJoke = (res) ->
         randomEnd = Math.random()
