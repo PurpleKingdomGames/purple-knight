@@ -6,8 +6,8 @@
 #
 # Commands:
 #   hubot tell me a joke - Tell the best joke known to man
+#   hubot tell me another joke - Tell another, sub-prime, joke
 #   hubot what is your favourite colour - It's a personal question but hubot has an answer
-#   hubot tell me a joke that isn't the purple joke - Tell another, sub-prime, joke
 #
 # Author:
 #   hobnob
@@ -125,7 +125,7 @@ module.exports = (robot) ->
         res.send "Hey, I just remembered a really cool joke! Do you want to hear it?"
         robot.brain.set 'askedAboutJoke', true
 
-    robot.respond /tell me a joke$/i, (res) ->
+    robot.respond /tell me a joke/i, (res) ->
         res.reply "You'll like this one; it's my favourite:"
         tellThePurpleJoke(res)
 
@@ -151,7 +151,7 @@ module.exports = (robot) ->
         else
             res.send "Try and guess..."
 
-    robot.respond /tell me a joke that isn't the purple joke$/i, (res) ->
+    robot.respond /tell me another joke/i, (res) ->
         res.http("https://webknox-jokes.p.mashape.com/jokes/random")
         .headers({
             "X-Mashape-Key":process.env.HUBOT_MASHAPE_KEY,
