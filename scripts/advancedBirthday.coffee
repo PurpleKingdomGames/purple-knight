@@ -44,8 +44,9 @@ module.exports = (robot) ->
         "{name} - You'll always be forever young."
     ]
 
-    robot.hear /(.*)/i, (res) ->
+    robot.hear /.*/i, (res) ->
         if !intervalId
+            # Set an interval of once per day to check for any birthdays on that day
             intervalId = setInterval () ->
                 birthdayChecks = robot.brain.get('birthday_checks') or []
                 nowDate        = new Date()
@@ -56,10 +57,18 @@ module.exports = (robot) ->
                     if checkDate.getDate() is nowDate.getDate() and checkDate.getMonth() is nowDate.getMonth()
                         if lastCheck.getDate() != nowDate.getDate() or lastCheck.getYear() != nowDate.getYear() or lastCheck.getMonth() != nowDate.getMonth()
                             res.send greeting birthday.name
-                            birthdayChecks[i].lastCheck = nowDate
+                            #birthdayChecks[i].lastCheck = nowDate
 
                 robot.brain.set 'birthday_checks', birthdayChecks
             , 1000
+
+    robot.respond /whos birthdays do you know about/i, (res) ->
+        birthdays     = robot.brain.get('birthday_checks') or []
+        if birthdays.length
+            sendGreetings = for birthday, i in birthdays
+                res.send birthday.name+" has a birthday on "+birthday.birthday
+        else
+            res.send "I don't seem to know about anyones birthday"
 
     robot.respond /wish (.*)? a happy birthday/i, (res) ->
         name = res.match[0].trim()
